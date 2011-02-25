@@ -14,6 +14,8 @@ Implementation
 ==============
 Implementation of the ideas found in this document has yet to take off, as is the implementation documentation and roadmap. See the 'Components' section for currently planned components of the system. 
 
+As many of the people in TuinfeesT have a relatively idle personal server in various locations, deployment of the cloud will be done across these personal servers. As the servers have different owners who all have root privileges on their own machine, use of TuinWolk involves trusting the owners of the involved machines with your files. Likewise, owners of TuinWolk nodes are expected to respect the privacy of all TuinWolk users and keep their paws off other people's files. 
+
 Components
 ==========
 In order to make TuinWolk more useful to its users, a number of components are to be developed on top of the git version control system. 
@@ -21,6 +23,10 @@ In order to make TuinWolk more useful to its users, a number of components are t
 Server-side synchronization
 ---------------------------
 In order to make TuinWolk act as a cloud service, each node in the cloud will have to automatically synchronize pushed changes to other nodes in the cloud. 
+
+Administration tools
+--------------------
+Administrators need to be able to add a repository for a new user without too much hassle. Scripts that require only a user and create a new repository that will be assimilated into the cloud would obviously increase the amount of administrator lazy. 
 
 Desktop integration
 -------------------
@@ -36,7 +42,8 @@ TuinfeesT is not known for its planning skills. Therefore, this section has no m
 
 Future extensions
 =================
- - Custom replication level (don't store every user's repository on every node) 
+ - Custom replication level (don't store every user's repository on every node). 
+ - Web interface (so only a login is needed for downloading a single file in stead of cloning a full repository). 
 
 Caveats
 =======
