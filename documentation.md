@@ -16,6 +16,8 @@ Implementation of the ideas found in this document has yet to take off, as is th
 
 As many of the people in TuinfeesT have a relatively idle personal server in various locations, deployment of the cloud will be done across these personal servers. As the servers have different owners who all have root privileges on their own machine, use of TuinWolk involves trusting the owners of the involved machines with your files. Likewise, owners of TuinWolk nodes are expected to respect the privacy of all TuinWolk users and keep their paws off other people's files. 
 
+Administrators are classicly lazy, as is TuinfeesT. The system needs to be setup in a way that minimizes user interaction other than using it as a backup solution. 
+
 Components
 ==========
 In order to make TuinWolk more useful to its users, a number of components are to be developed on top of the git version control system. 
@@ -39,7 +41,7 @@ Desktop integration
 For every operating system in use by TuinWolk's users (currently Linux, Max OSX and Windows), the following components will ease the use of the system and turn it into a proper backup solution: 
 
  - (Headless) client component with knowledge of local TuinWolk repositories and cloud nodes (probably just git remotes) and capabilities to refresh any knowledge about the cloud from any TuinWolk node. The component should automatically pull changes not present in the local repository from the cloud (at startup, periodically, by push notification, ...). 
- - File explorer (Nautilus/Thunar) extension that communicates with the client component to manage local TuinWolk repositories. 
+ - File explorer (Nautilus/Thunar/Finder/Explorer) extension that communicates with the client component to manage local TuinWolk repositories. 
  - System widget capable of indicating changes ready to commit or push and communicating with the client component. 
 
 For Linux and Mac OSX, python might be used as this allows to integrate into the system well. For Windows, someone might be sharpening some C. 
@@ -50,8 +52,9 @@ TuinfeesT is not known for its planning skills. Therefore, this section does not
 
 Future extensions
 =================
- - Custom replication level (don't store every user's repository on every node). 
+ - Custom replication level (don't store every user's repository on every node, making the system a lot more scalable). 
  - Web interface (so only a login is needed for downloading a single file in stead of cloning a full repository). 
+ - Resetting of a user's repository (removing all history information and old, large, unneeded files). 
 
 Caveats
 =======
