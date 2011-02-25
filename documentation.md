@@ -38,7 +38,7 @@ For every operating system in use by TuinWolk's users (currently Linux, Max OSX 
 
 Roadmap
 =======
-TuinfeesT is not known for its planning skills. Therefore, this section has no meaningful content (yet). 
+TuinfeesT is not known for its planning skills. Therefore, this section does not have a lot of meaningful content (yet). 
 
 Future extensions
 =================
@@ -53,5 +53,5 @@ Repository size and history
 
 Changes in the cloud
 --------------------
-(Although a temporary node failure will not hard the system, adding or removing nodes has to be done in a way that makes the change apparent to all other nodes and repos within the system) 
+(Although a temporary node failure will not hurt the system, adding or removing nodes has to be done in a way that makes the change apparent to all other nodes and repos within the system) 
 
