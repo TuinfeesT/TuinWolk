@@ -12,7 +12,31 @@ Users of TuinWolk turn a folder on their system into a git repository to start u
 
 Implementation
 ==============
-Implementation of the ideas found in this document has yet to take off, as is the implementation documentation and roadmap. 
+Implementation of the ideas found in this document has yet to take off, as is the implementation documentation and roadmap. See the 'Components' section for currently planned components of the system. 
+
+Components
+==========
+In order to make TuinWolk more useful to its users, a number of components are to be developed on top of the git version control system. 
+
+Server-side synchronization
+---------------------------
+In order to make TuinWolk act as a cloud service, each node in the cloud will have to automatically synchronize pushed changes to other nodes in the cloud. 
+
+Desktop integration
+-------------------
+For every operating system in use by TuinWolk's users (currently Linux, Max OSX and Windows), the following components will ease the use of the system and turn it into a proper backup solution: 
+
+ - (Headless) client component with knowledge of local TuinWolk repositories and cloud nodes (probably just git remotes) and capabilities to refresh any knowledge about the cloud from any TuinWolk node. The component should automatically pull changes not present in the local repository from the cloud (at startup, periodically, by push notification, ...). 
+ - File explorer (Nautilus/Thunar) extension that communicates with the client component to manage local TuinWolk repositories. 
+ - System widget capable of indicating changes ready to commit or push and communicating with the client component. 
+
+Roadmap
+=======
+TuinfeesT is not known for its planning skills. Therefore, this section has no meaningful content (yet). 
+
+Future extensions
+=================
+ - Custom replication level (don't store every user's repository on every node) 
 
 Caveats
 =======
