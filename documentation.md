@@ -12,9 +12,15 @@ Users of TuinWolk turn a folder on their system into a git repository to start u
 
 Implementation
 ==============
+Implementation of the ideas found in this document has yet to take off, as is the implementation documentation and roadmap. 
 
 Caveats
 =======
 Repository size and history
 ---------------------------
 (large files will never leave the repo history, repo will only ever get bigger) 
+
+Changes in the cloud
+--------------------
+(Although a temporary node failure will not hard the system, adding or removing nodes has to be done in a way that makes the change apparent to all other nodes and repos within the system) 
+
