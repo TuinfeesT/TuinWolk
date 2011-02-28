@@ -46,6 +46,20 @@ For every operating system in use by TuinWolk's users (currently Linux, Max OSX 
 
 For Linux and Mac OSX, python might be used as this allows to integrate into the system well. For Windows, someone might be sharpening some C. 
 
+Setup
+=====
+TODO: expand writing (insert epic fail here T_T)
+ - acolyte sends ssh pubkey to estrablished admin 
+ - admin pushes new autorized keys file through cloud 
+ - acolyte's server has git access to entire cloud
+ - new node pulls appropriate repos to local file system 
+
+Communication
+=============
+TODO: expand writing (also insert fila here...)
+ - nodes need to communicate other things than just git 
+ - setup encrypted sockets with known secrets or secrets pushed in a git config (git access was established first anyway) 
+
 Roadmap
 =======
 TuinfeesT is not known for its planning skills. Therefore, this section does not have a lot of meaningful content (yet). 
