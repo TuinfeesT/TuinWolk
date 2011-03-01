@@ -26,7 +26,7 @@ Server-side synchronization
 ---------------------------
 In order to make TuinWolk act as a cloud service, each node in the cloud will have to automatically synchronize pushed changes to other nodes in the cloud. 
 
-It is logical to use git hooks for this. When pushing between nodes, however, care needs to be taken that nodes will not keep pushing empty changesets in circles; updates need to be sent around somewhat intelligently. With an initial low amount of nodes, this could be accomplishes by having the receiver of a user's push be the one to update all other nodes. Should the system ever scale up, this is no longer feasible. If an elegant solution is not found initially, implementation of such a distribution algorithm could be postponed to a more troublesome time. 
+It is logical to use git hooks for this. When pushing between nodes, however, care needs to be taken that nodes will not keep pushing empty changesets in circles; updates need to be sent around somewhat intelligently. With an initial low amount of nodes, this could be accomplishes by having the receiver of a user's push be the one to update all other nodes. Should the system ever scale up, this is no longer feasible. If an elegant solution is not found initially, implementation of such a distribution algorithm could be postponed to a more troublesome time. One could, for instance, think of a spanning tree protocol in which each node is responsible for the pushes to a certain server. This, in combination with a heartbeat service and a redesign-tree-when-node-collapses protocol should be enough to guarantee uptime.
 
 Nodes in the system need to be aware of each other's presence in order to know where to push to. Use of a single master node that maintains this information is considered a bad idea; all nodes sharing knowledge of the complete network is more robust. Entering a new node into the system would then require a system administrator to point the new node to at least one other node in order to retrieve information on the other nodes, however. Use of some sort of round robin or dynamic DNS pointing to a preset hostname might ease the pain in most cases. 
 
@@ -46,19 +46,13 @@ For every operating system in use by TuinWolk's users (currently Linux, Max OSX 
 
 For Linux and Mac OSX, python might be used as this allows to integrate into the system well. For Windows, someone might be sharpening some C. 
 
-Setup
-=====
-TODO: expand writing (insert epic fail here T_T)
- - acolyte sends ssh pubkey to estrablished admin 
- - admin pushes new autorized keys file through cloud 
- - acolyte's server has git access to entire cloud
- - new node pulls appropriate repos to local file system 
+New Node Setup
+==============
+If a person (from now on referred to as an acolyte) wants to join an existing TuinWolk with server A, he/she will have to make contact with an existing TuinWolk administrator. The acolyte provides his/her public key to the administrator, who adds this key to his/her own server (B). The file in which all these keys are stored is part of the TuinWolk and is thus pushed to all other servers, giving the acolyte git access on all servers in the cloud and giving all other servers in the cloud access to the acolyte's server in return. The acolyte can now setup and start running the TuinWolk daemon which will (together with the other daemons) decide which repositories the acolyte's server will host, depending on the amount of storage the acolyte donates to the TuinWolk.
 
 Communication
 =============
-TODO: expand writing (also insert fila here...)
- - nodes need to communicate other things than just git 
- - setup encrypted sockets with known secrets or secrets pushed in a git config (git access was established first anyway) 
+In order for the daemons to decide which repositories will be stored where (see New Node Setup above and Caveats below), the daemons will have to communicate on a live channel instead of just through files in git. To encrypt these communcations, however, we can setup a simple public/private key encryption system in which the public keys of nodes are distributed through git. In this way we can use a simple socket as a communication means between servers over which we send encrypted commands and such. This communication is secure against eavesdroppers but might not stop active man-in-the-middle attackers. Hashing and signing each message, however, should resolve this issue.
 
 Roadmap
 =======
@@ -75,9 +69,11 @@ Caveats
 =======
 Repository size and history
 ---------------------------
-(large files will never leave the repo history, repo will only ever get bigger) 
+As each user can decide for him/herself how much space to donate to the TuinWolk, repository size might become a problem. Two mitigations exist to solve this problem:
+1. Git provides the git-rebase functionality, making it possible to "forget" all revisions before a certain chosen revision. Using this system, one could decide that revisions which are over 2 years old are probably no longer of use and can thus be removed from the repository. The largest repositories, however, will probably contain large binary files (such as pictures) which hardly have any revisions, making this mitigation a bit less useful.
+2. Let the daemons decide for themselves which repository is stored where. If a repo is comprised of mainly large binary files the system could decide that it is probably a photo backup (and not a source directory) and can thus only replicate this repo on systems that have plenty of storage available to the TuinWolk. Although this creates some unfairness (people adding only 10GB to the total TuinWolk size can still place repositories > 10GB) it does provide a solid solution to the problem. Furthermore, the unfairness is eased a bit since adding large repo's to the TuinWolk means that they will be stored only in a few places (namely only machines with lots of storage) and will thus not be available on every machine in the TuinWolk.
 
 Changes in the cloud
 --------------------
-(Although a temporary node failure will not hurt the system, adding or removing nodes has to be done in a way that makes the change apparent to all other nodes and repos within the system) 
+Failure of TuinWolk systems should never result in dataloss; that is TuinWolk's main feature. This means that temporary or pertinent downtime of a system should be detected and handled gracefully. A distributed heartbeat system can be used to detect system failure, this should be easy to setup.  If the dying system is one of two systems hosting a certain repo (it can never be the only one), the TuinWolk should then replicate the repo to another system, to make sure that there are always at least two copies.
 
