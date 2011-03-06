@@ -30,6 +30,8 @@ It is logical to use git hooks for this. When pushing between nodes, however, ca
 
 Nodes in the system need to be aware of each other's presence in order to know where to push to. Use of a single master node that maintains this information is considered a bad idea; all nodes sharing knowledge of the complete network is more robust. Entering a new node into the system would then require a system administrator to point the new node to at least one other node in order to retrieve information on the other nodes, however. Use of some sort of round robin or dynamic DNS pointing to a preset hostname might ease the pain in most cases. 
 
+In the case of large changes to the system--like pushing a large user commit between nodes or synchronizing a repository copy to a new node--bandwidth usage from node to node needs to be kept in check to not clog the network between the nodes. How to tell git to throttle the network throughput is something to research. 
+
 Administration tools
 --------------------
 Administrators need to be able to add a repository for a new user without too much hassle. Scripts that require only a user and create a new repository that will be assimilated into the cloud would obviously increase the amount of administrator lazy. 
