@@ -70,7 +70,8 @@ Caveats
 Repository size and history
 ---------------------------
 As each user can decide for him/herself how much space to donate to the TuinWolk, repository size might become a problem. Two mitigations exist to solve this problem:
-1. Git provides the git-rebase functionality, making it possible to "forget" all revisions before a certain chosen revision. Using this system, one could decide that revisions which are over 2 years old are probably no longer of use and can thus be removed from the repository. The largest repositories, however, will probably contain large binary files (such as pictures) which hardly have any revisions, making this mitigation a bit less useful.
+
+1. Git provides the git-rebase functionality, making it possible to 'forget' all revisions before a certain chosen revision. Using this system, one could decide that revisions which are over 2 years old are probably no longer of use and can thus be removed from the repository. The largest repositories, however, will probably contain large binary files (such as pictures) which hardly have any revisions, making this mitigation a bit less useful.
 2. Let the daemons decide for themselves which repository is stored where. If a repo is comprised of mainly large binary files the system could decide that it is probably a photo backup (and not a source directory) and can thus only replicate this repo on systems that have plenty of storage available to the TuinWolk. Although this creates some unfairness (people adding only 10GB to the total TuinWolk size can still place repositories > 10GB) it does provide a solid solution to the problem. Furthermore, the unfairness is eased a bit since adding large repo's to the TuinWolk means that they will be stored only in a few places (namely only machines with lots of storage) and will thus not be available on every machine in the TuinWolk.
 
 Changes in the cloud
