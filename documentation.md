@@ -44,7 +44,9 @@ For every operating system in use by TuinWolk's users (currently Linux, Max OSX 
  - File explorer (Nautilus/Thunar/Finder/Explorer) extension that communicates with the client component to manage local TuinWolk repositories. 
  - System widget capable of indicating changes ready to commit or push and communicating with the client component. 
 
-For Linux and Mac OSX, python might be used as this allows to integrate into the system well. For Windows, someone might be sharpening some C. 
+For Linux and Mac OSX, python might be used as this integrates into the system well. For Windows, someone might be sharpening some C. 
+
+As home connections to the Internet are not always as fast as a user would want, the client program will have to take bandwidth limitations into account. With large changes to a user's repository, the client program will have to split the change into commits of a particular size and push them into the cloud one by one, possibly periodically. 
 
 New Node Setup
 ==============
