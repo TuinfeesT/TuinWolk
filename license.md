@@ -1,4 +1,4 @@
-TuinWolk licence information
+TuinWolk license information
 ============================
 Copyright 2011 by TuinfeesT
 
