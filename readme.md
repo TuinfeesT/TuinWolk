@@ -1,6 +1,6 @@
 TuinWolk
 ========
-TuinWolk is intended to become a distributed backup solution powered by git. Its current state can be described as a brainfart among friends. That said, the general idea behind TuinWolk is open, please read the licence located in licence.md.
+TuinWolk is intended to become a distributed backup solution powered by git. Its current state can be described as a brainfart among friends. That said, the general idea behind TuinWolk is open, please read the license located in license.md.
 
 See the documentation files for a more thorough description of the ideas surrounding TuinWolk.
 
