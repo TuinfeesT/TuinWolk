@@ -64,7 +64,7 @@ TuinfeesT is not known for its planning skills. Therefore, this section does not
 
 Future extensions
 =================
- - using information from http://syncom.appspot.com/papers/git_encryption.txt, try to make the cloud storage encrypted.
+ - using information from http://syncom.appspot.com/papers/git_encryption.txt, try to make the cloud storage encrypted (this makes the development of a web interface very difficult: downloaded file is encrypted, JavaScript has no access to downloaded file; store encryption passphrase in web session for web-app-side decryption file from repo?).
  - Custom replication level (don't store every user's repository on every node, making the system a lot more scalable). 
  - Web interface (so only a login is needed for downloading a single file in stead of cloning a full repository). 
  - Resetting of a user's repository (removing all history information and old, large, unneeded files). 
