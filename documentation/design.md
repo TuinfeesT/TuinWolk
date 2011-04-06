@@ -18,6 +18,7 @@ TuinWolk client service
  - Keep open connection with TuinWolk to receive updates on available nodes, updates, ...
  - Split large changes in local repository into multiple commits 
  - Remove local unpushed commits to the same files to save space (only last edit of binary file would be backed up) 
+ - Encrypting / decrypting files before push / after pull 
  - Come up with commit messages more meaningful than time stamps and list of changed files 
  - Adhere to user settings (refresh if changed, see below) 
 
@@ -45,3 +46,34 @@ Available settings
  - Manage client side encryption passphrase 
  - Manage notification settings 
  - Move entire repository to new location 
+
+Server side application
+=======================
+The server side as described initial documentation will run as a service on every node in the TuinWolk. The application would be dorment most of the time, waiting for user activity or node failure. A few components are key to the functioning of the TuinWolk service on a node: 
+
+ - Git integration; 
+ - Global system state checking; 
+ - Distributed decision making. 
+
+Git integration
+---------------
+ - git-shell ssh access throughout the system 
+ - Git hooks to trigger the system on push
+ 
+Global system state checking 
+----------------------------
+ - Periodic system knowledge update (using pings or custom network connection) 
+ - Keep complete knowledge of repository locations 
+ - Take action on node failure 
+ - Use either fully connected graph of nodes or some smart (topology based?) x connections for each clients making sure all clients are equally connected 
+
+Distributed decision making
+---------------------------
+ - No single node is more important than another 
+ - Share and check information on system state 
+ - Voting on possible decisions 
+ - Detection of 'cheats' by malicious node(s) 
+
+Distribution 
+============
+The TuinWolk applications--both the client and server sides--need to be distributable to multiple platforms or systems. The server side would most likely be targeted at unix-like systems due to the ssh dependency, but default locations and techniques for performing various actions differs from Debian to Gentoo or even BSD. Implementation differences between these platforms need to be taken into account. The client side application needs to run on as many platforms as possible for ease of use throughout the digital world. 
