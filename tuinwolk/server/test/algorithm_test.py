@@ -14,10 +14,10 @@ class Repo:
 		self.locations = locations
 	
 	def __str__(self):
-		return self.name + ' ' + str(self.local_size) + 'MB'
+		return '%7s %3dMB %s' %(self.name, self.local_size, ''.join(map(str, self.locations)))
 
 	def __repr__(self):
-		return self.name + ' ' + str(self.local_size) + 'MB'
+		return '%7s %3dMB %s' %(self.name, self.local_size, ''.join(map(str, self.locations)))
 	
 class Location:
 	ip = ''
@@ -26,6 +26,7 @@ class Location:
 	max_down = 0
 	max_size = 500
 	user = ''
+	repos = []
 
 	def __init__(self, ip, port, max_up, max_down, max_size, user):
 		self.ip = ip
@@ -43,8 +44,6 @@ class Location:
 
 def main():
 	(repos, locations) = init_test_data()
-	print('repos: ' + str(repos))
-	print('locations: ' + str(locations))
 	distribute(repos, locations)
 
 def distribute(repos, locations):
@@ -53,9 +52,18 @@ def distribute(repos, locations):
 	#if a repo doesn't fit, put it in one locatoin bigger
 	repos = sorted(repos, key=lambda r : r.local_size, reverse=True)
 	locations = sorted(locations, key=lambda l : l.max_size, reverse=True)
-	print(repos)
-	print(locations)
-
+	i = 0
+	for repo in repos:
+		for _ in range(repo.min_locations):
+			saved_i = i
+			if i < len(locations):
+				print('Trying to couple %s(%d) to %s(%d)' % (repo, repo.local_size, locations[i], locations[i].max_size))
+				if repo.local_size < locations[i].max_size:
+					#we have a match, couple the location
+					repo.locations.append(locations[i])
+					print('Repo %s coupled to %s' % (repo, locations[i]))
+				i += 1
+			i = saved_i + 1
 
 def init_test_data():
 	locations = []
@@ -64,7 +72,7 @@ def init_test_data():
 
 	repos = []
 	for i in range(10):
-		repos.append(Repo('repo_' + str(i), i % 3, random.randint(1,200), i % 3 + 1, random_str(5)))
+		repos.append(Repo('repo_' + str(i), i % 3, random.randint(1,200), i % 3 + 1, []))
 	return (repos, locations)
 
 def random_str(number):
