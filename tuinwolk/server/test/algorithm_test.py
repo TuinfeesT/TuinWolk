@@ -14,10 +14,10 @@ class Repo:
 		self.locations = locations
 	
 	def __str__(self):
-		return '%7s %3dMB %s' %(self.name, self.local_size, ''.join(map(str, self.locations)))
+		return '%7s (%3dMB : %s)' %(self.name, self.local_size, self.min_locations) 
 
 	def __repr__(self):
-		return '%7s %3dMB %s' %(self.name, self.local_size, ''.join(map(str, self.locations)))
+		return '%7s (%3dMB : %s)' %(self.name, self.local_size, self.min_locations) 
 	
 class Location:
 	ip = ''
@@ -37,10 +37,10 @@ class Location:
 		self.user = user
 
 	def __str__(self):
-		return self.user + '@' + self.ip + ':' + str(self.port)
+		return '%s@%s:%d(%dMB)' % (self.user, self.ip, self.port, self.max_size)
 
 	def __repr__(self):
-		return self.user + '@' + self.ip + ':' + str(self.port)
+		return '%s@%s:%d(%dMB)' % (self.user, self.ip, self.port, self.max_size)
 
 def main():
 	(repos, locations) = init_test_data()
@@ -54,16 +54,18 @@ def distribute(repos, locations):
 	locations = sorted(locations, key=lambda l : l.max_size, reverse=True)
 	i = 0
 	for repo in repos:
+		print i
 		for _ in range(repo.min_locations):
+			print i
 			saved_i = i
 			if i < len(locations):
-				print('Trying to couple %s(%d) to %s(%d)' % (repo, repo.local_size, locations[i], locations[i].max_size))
+				print('Trying to couple %s to %s' % (repo, locations[i]))
 				if repo.local_size < locations[i].max_size:
 					#we have a match, couple the location
 					repo.locations.append(locations[i])
 					print('Repo %s coupled to %s' % (repo, locations[i]))
-				i += 1
-			i = saved_i + 1
+				i -= 1
+				i = saved_i if i < saved_i - 1 else saved_i + 1 #to make sure that every location gets a repo
 
 def init_test_data():
 	locations = []
