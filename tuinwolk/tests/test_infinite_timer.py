@@ -1,5 +1,8 @@
 import unittest, time
 from ..server.daemons.infinite_timer import InfiniteTimer
+import logging
+import os
+
 
 class TestInfiniteTimerFunctions(unittest.TestCase):
 
@@ -8,19 +11,22 @@ class TestInfiniteTimerFunctions(unittest.TestCase):
 		returnval = False
 
 	def test_timer(self):
-		print 1
+		global t
 		t = InfiniteTimer(1, self.returnTrue)
 		t.start()
 		time.sleep(2)
 		self.assertTrue(returnval)
 
 	def test_cancel(self):
-		print 2
-		t = InfiniteTimer(10, self.returnTrue)
+		global t
+		t = InfiniteTimer(4, self.returnTrue)
 		t.start()
-		time.sleep(1)
+		time.sleep(2)
 		t.cancel()
 		self.assertFalse(returnval)
+	
+	def tearDown(self):
+		t.cancel()
 
 
 	def returnTrue(self):
